@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/master.xhtml">
+	<ui:define name="content">
+		<h1>Mi Muro</h1>
+		<h:form id="form">
+		
+			<f:websocket channel="notify" onmessage="mostrar" />
+			
+			<script type="text/javascript">
+				function mostrar(message, channel, event){
+					setTimeout(function(){
+						document.getElementById('form:hdnBtn').click();
+					}, 1000);
+				}
+			</script>		
+			
+			<p:commandButton id="hdnBtn" actionListener="#{principalBean.listarPublicaciones()}" update="pg" style="display: none;"/>	
+
+			<h:panelGrid columns="1" id="pg">
+				<p:repeat value="#{principalBean.publicaciones}" var="p">
+					<h:panelGrid columns="2" style="width:100%">
+
+						<p:graphicImage value="/imagen/#{p.publicador.idPersona}"
+							width="16" height="16" />
+
+						<p:outputPanel>
+							<h:panelGrid columns="2" cellpadding="5">
+								<h:outputText value="#{p.cuerpo}" />
+							</h:panelGrid>
+						</p:outputPanel>
+					</h:panelGrid>
+					<hr />
+				</p:repeat>
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>

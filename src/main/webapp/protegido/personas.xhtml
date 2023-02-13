@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/master.xhtml">
+
+	<ui:define name="content">
+		<h1>Personas</h1>
+		<h:form id="frm" enctype="multipart/form-data">
+			<p:commandButton value="Nuevo" oncomplete="PF('wdlg').show()" actionListener="#{personaBean.limpiarControles()}" update="frm:dlg" process="@this"/>
+			
+				<p:dataTable id="dt" var="e" value="#{personaBean.lista}"
+					paginator="true" rows="5"
+					paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="5,10,15">
+					
+					<p:column headerText="Nombres Completos">
+						<p:outputLabel value="#{e.nombres} - #{e.apellidos}" />
+					</p:column>
+
+					<p:column headerText="Sexo">
+						<p:outputLabel value="#{e.sexo}" />
+					</p:column>
+
+					<p:column headerText="País">
+						<p:outputLabel value="#{e.pais}" />
+					</p:column>
+
+					<p:column headerText="Acciones" exportable="false">
+						<p:commandLink actionListener="#{personaBean.mostrarData(e)}" oncomplete="PF('wdlg').show()" update="frm:dlg" immediate="true" process="@this">
+							<p:graphicImage library="images" name="edit.jpg" />
+						</p:commandLink>
+					</p:column>
+
+				</p:dataTable>
+			
+			<p:dialog id="dlg" widgetVar="wdlg" header="#{personaBean.tipoDialog}" modal="true" closeOnEscape="true" resizable="false" draggable="true">
+				<h:panelGrid id="pg" columns="3">
+					<p:outputLabel for="txtNombres" value="Nombres"/>
+					<p:inputText id="txtNombres" value="#{personaBean.persona.nombres}" required="true"/>
+					<p:message for="txtNombres" display="icon"/>	
+					
+					<p:outputLabel for="txtApellidos" value="Apellidos" />
+					<p:inputText id="txtApellidos" value="#{personaBean.persona.apellidos}" required="true"/>
+					<p:message for="txtApellidos" display="icon"/>
+
+					<p:outputLabel for="txtSexo" value="SEXO" />
+					<p:inputText id="txtSexo" value="#{personaBean.persona.sexo}" required="true"/>
+					<p:message for="txtSexo" display="icon"/>
+					
+					<p:outputLabel for="txtDireccion" value="Direccion" />
+					<p:inputText id="txtDireccion" value="#{personaBean.persona.direccion}" />
+					<p:message for="txtDireccion" display="icon"/>
+					
+					<p:outputLabel for="txtPais" value="Pais" />
+					<p:inputText id="txtPais" value="#{personaBean.persona.pais}" required="true"/>
+					<p:message for="txtPais" display="icon"/>
+					
+					<p:outputLabel for="puFoto" value="Foto" />
+					<p:fileUpload id="puFoto" fileUploadListener="#{personaBean.handleFileUpload}" mode="advanced" uploadLabel="Subir"  cancelLabel="Cancelar" label="Examinar..."/>
+					<p:message for="puFoto" display="icon"/>
+									
+					<h:panelGrid id="img">	
+						<h:graphicImage value="/imagen/#{personaBean.persona.idPersona}?t=#{now.time}" width="120" height="120" rendered="#{personaBean.persona.idPersona > 0}"/>
+					</h:panelGrid>
+									
+				</h:panelGrid>
+				<p:commandButton value="Registrar" actionListener="#{personaBean.operar('R')}" ajax="true" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('wdlg').hide()" update="pg, dt" rendered="#{personaBean.tipoDialog == 'Nuevo'}"/>
+				<p:commandButton value="Modificar" actionListener="#{personaBean.operar('M')}" ajax="true" oncomplete="if (args &amp;&amp; !args.validationFailed) PF('wdlg').hide()" update="pg, dt" rendered="#{personaBean.tipoDialog == 'Modificar'}"/>
+			</p:dialog>
+			
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

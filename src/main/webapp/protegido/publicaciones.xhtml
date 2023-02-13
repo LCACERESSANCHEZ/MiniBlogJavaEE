@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+			<ui:define name="content">
+				<p:growl autoUpdate="true" showDetail="true" />
+				<h:form>
+					<h:panelGrid columns="1">
+						<p:outputLabel value="Texto" />
+						<p:inputTextarea id="txtTexto" value="#{publicacionBean.publicacion.cuerpo}" counter="display" rows="5" cols="70" maxlength="250" counterTemplate="{0} caracteres restantes." autoResize="false" required="true"
+							requiredMessage="Debe ingresar un texto" />
+						<p:message for="txtTexto" display="text" />
+						<h:outputText id="display" />
+					</h:panelGrid>
+					
+					<p:commandButton value="Publicar" actionListener="#{publicacionBean.publicar()}"  />
+				</h:form>
+				
+				<h2>Publicaciones</h2>
+				<h:form>
+					<h:panelGrid columns="1">
+						<p:repeat value="#{publicacionBean.publicaciones}" var="e">						
+							<p:graphicImage value="/imagen/#{e.publicador.idPersona}" width="32" height="32"/>
+
+							<p:outputPanel>
+								<h:panelGrid columns="2" cellpadding="5">									
+									<h:outputText value="#{e.cuerpo}" />
+								</h:panelGrid>
+							</p:outputPanel>
+						</p:repeat>
+					</h:panelGrid>
+					
+				</h:form>
+			</ui:define>
+	</ui:composition>
+
+</html>

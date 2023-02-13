@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/master.xhtml">
+	<ui:define name="content">
+		<h1>Reporte de Seguidores</h1>
+		<h:form>
+			<p:chart type="pie" model="#{reporteBean.pieModel1}" style="height:300px" />
+			
+			<p:commandButton value="PDF" action="#{reporteBean.generarReporte()}" ajax="false"/>
+			<p:commandButton value="Ver PDF" action="#{reporteBean.verPDF()}" ajax="false" />
+			<p:commandLink value="Ver PDF" action="#{reporteBean.verPDF()}" ajax="false" target="_blank"/>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

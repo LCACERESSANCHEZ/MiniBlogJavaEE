@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/master.xhtml">
+	<ui:define name="content">
+		<h1>Mis Seguidores</h1>
+		<h:form>
+
+			<p:growl id="msg" showDetail="true" />
+			
+			<h:panelGrid columns="1">
+					<p:repeat value="#{meSigueBean.seguidores}" var="e">
+						<h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+
+							<p:graphicImage value="/imagen/#{e.seguidor.idPersona}"
+							width="32" height="32"
+							rendered="#{e.publicador.idPersona != 0}" />
+
+							<p:outputPanel>
+								<h:panelGrid columns="2" cellpadding="5">
+									<h:outputText value="Publicador: " />									
+									<h:outputText value="#{e.seguidor.nombres} #{e.seguidor.apellidos}" />
+									
+									<h:outputText value="País: " />
+									<h:outputText value="#{e.seguidor.pais}" />
+
+									<h:outputText value="Desde: " />
+									<h:outputText value="#{e.fecha}">
+										<f:convertDateTime type="localDate" pattern="dd/MM/yyyy HH:mm:ss a" />
+									</h:outputText>
+								</h:panelGrid>
+							</p:outputPanel>
+						</h:panelGrid>
+						<hr />
+					</p:repeat>
+				</h:panelGrid>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>

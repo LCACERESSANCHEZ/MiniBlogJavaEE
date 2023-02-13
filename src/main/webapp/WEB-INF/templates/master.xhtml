@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="estilos.css"/>
+<title><ui:insert name="titulo">MiniBlog - Inicio</ui:insert></title>
+	<f:event listener="#{masterBean.verificarSesion()}" type="preRenderView"></f:event>
+</h:head>
+
+<body class="resolucion">
+	<ui:insert name="header">
+		<p:menubar autoDisplay="false">
+			<p:menuitem icon="ui-icon-home" value="Inicio" url="/protegido/principal.xhtml"/>
+			<p:menuitem icon="ui-icon-person" value="Publicaciones" url="/protegido/publicaciones.xhtml"/>
+			
+			<p:submenu label="Seguidores" icon="ui-icon-person">
+				<p:menuitem icon="ui-icon-person" value="Mis Seguidores" url="/protegido/me_sigue.xhtml"/>
+				<p:menuitem icon="ui-icon-person" value="¿A quién seguir?" url="/protegido/seguir.xhtml"/>
+			</p:submenu>
+			
+			<p:submenu label="Mantenedores" icon="ui-icon-pencil">
+				<p:menuitem icon="ui-icon-document" value="Personas" url="/protegido/personas.xhtml"  />
+				<p:menuitem icon="ui-icon-document" value="Usuarios" url="/protegido/usuarios.xhtml"  />
+				<p:menuitem icon="ui-icon-document" value="Roles" url="/protegido/roles.xhtml"  />
+				<p:menuitem icon="ui-icon-document" value="Asignar Roles" url="/protegido/asignar.xhtml"  />
+			</p:submenu>
+			
+			<p:menuitem icon="ui-icon-print" value="Seguidores" url="/protegido/rep_seguidores.xhtml"  />
+			
+			<f:facet name="options">
+				<p:commandButton icon="ui-icon-power" actionListener="#{masterBean.cerrarSesion()}" url="/index.xhtml" />
+			</f:facet>
+		</p:menubar>
+	</ui:insert>
+	
+	<ui:insert name="content"></ui:insert>
+	
+	<ui:insert name="footer">
+		<div>Copyright © MitoCode Network, 2018. Todos los derechos
+				reservados</div>
+	</ui:insert>
+</body>
+
+</html>

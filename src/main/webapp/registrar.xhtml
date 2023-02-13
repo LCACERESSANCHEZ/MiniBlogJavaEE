@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link href="./resources/css/index.css" rel="stylesheet" type="text/css" />
+</h:head> 
+<body> 
+	<div class="registrarDiv" style="width: 400px">
+		<h:form>
+		<p:messages autoUpdate="true" />
+		
+			<p:panel>
+				<f:facet name="header">Registrar Usuario</f:facet>
+				<h:panelGrid id="pg" columns="4">
+					<p:outputLabel for="txtNombres" value="Nombres" />
+					<p:inputText id="txtNombres" value="#{registroBean.persona.nombres}" required="true" />
+					<p:message for="txtNombres" display="text" />
+					<h:column />					
+
+					<p:outputLabel for="txtApellidos" value="Apellidos" />
+					<p:inputText id="txtApellidos" value="#{registroBean.persona.apellidos}" required="true" />
+					<p:message for="txtApellidos" display="text" />
+					<h:column />
+
+					<p:outputLabel for="optSexo" value="Sexo" />
+					<p:selectOneRadio id="optSexo" value="#{registroBean.persona.sexo}" required="true">
+						<f:selectItem itemLabel="Masculino" itemValue="M" />
+						<f:selectItem itemLabel="Femenino" itemValue="F" />
+					</p:selectOneRadio>
+					<p:message for="optSexo" display="text" />
+					<h:column />
+
+					<p:outputLabel for="cboPais" value="Pais" />
+					<p:selectOneMenu id="cboPais" value="#{registroBean.persona.pais}" filter="true" filterMatchMode="contains" required="true">
+						<f:selectItem noSelectionOption="true" value="#{null}" itemLabel="--Seleccione--"/>
+						<f:selectItems value="#{paisDTO.paises}" var="p" itemLabel="#{p}" itemValue="#{p}" />
+					</p:selectOneMenu>
+					<p:message for="cboPais" display="text" />
+					<h:column />
+
+					<p:outputLabel for="txtDireccion" value="Direccion" />
+					<p:inputTextarea id="txtDireccion" value="#{registroBean.persona.direccion}" counter="display" rows="5" cols="30" maxlength="250" counterTemplate="{0} caracteres restantes." autoResize="false" required="true" />
+					<p:message for="txtDireccion" display="text" />
+					<h:column />
+
+					<h:column />
+					<h:outputText id="display" />
+					<h:column />
+					<h:column />
+
+					<p:outputLabel for="txtUsuario" value="Usuario" />
+					<p:inputText id="txtUsuario" value="#{registroBean.usuario.usuario}" required="true" />
+					<p:message for="txtUsuario" display="text" />
+					<h:column />
+
+					<p:outputLabel for="pwd1" value="Contraseña 1:" />
+					<p:password id="pwd1" value="#{registroBean.usuario.contrasena}" match="pwd2" label="Password 1" required="true" validatorMessage="Contraseñas no coinciden"/>
+					<p:message for="pwd1" display="text" />
+					<h:column />
+
+					<p:outputLabel for="pwd2" value="Contraseña 2:" />
+					<p:password id="pwd2" value="#{registroBean.usuario.contrasena}" label="Password 2" required="true" />
+					<h:column />
+					<h:column />
+
+				</h:panelGrid>
+
+				<p:commandButton value="Inicio" action="index?faces-redirect=true" immediate="true"/>
+				<p:commandButton value="Registrar" action="#{registroBean.registrar()}" />
+			</p:panel>
+		</h:form>
+	</div>
+</body> 
+</html>

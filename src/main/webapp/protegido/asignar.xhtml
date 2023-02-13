@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+			<ui:define name="content">
+				<h1>Personas</h1>
+				<h:form>
+					<p:growl autoUpdate="true" showDetail="true"/>
+				
+					<p:selectOneMenu value="#{asignarBean.persona}" converter="omnifaces.SelectItemsConverter">
+						<f:selectItem itemLabel="--Seleccione--" itemValue="#{null}" noSelectionOption="true"/>
+						<f:selectItems value="#{asignarBean.personas}" var="e" itemValue="#{e}" itemLabel="#{e.nombres} #{e.apellidos}"/>
+					</p:selectOneMenu>
+					
+					<p:pickList id="pickList" value="#{asignarBean.dual}" var="e" itemLabel="#{e.tipo}" itemValue="#{e}">
+						<o:converter converterId="omnifaces.ListIndexConverter" list="#{asignarBean.dual.source}" />
+					</p:pickList>
+					
+					<p:commandButton value="Asignar" actionListener="#{asignarBean.asignar()}"/>
+				</h:form>
+			</ui:define>
+			
+	</ui:composition>
+
+</html>

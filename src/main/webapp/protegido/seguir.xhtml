@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/templates/master.xhtml">
+	<ui:define name="content">
+		<h1>¿A quién seguir?</h1>
+		<h:form>
+			<p:growl id="msg" showDetail="true" autoUpdate="true"/>
+					
+			<p:dataGrid value="#{seguirBean.personas}" var="e" columns="3" layout="grid" rows="12" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="6,12,16">
+			
+				<f:facet name="header">
+					Publicadores
+				</f:facet>
+				
+				<p:panel header="#{e.pais}" style="text-align: center">
+					<h:panelGrid columns="1" style="width:100%">
+						<p:graphicImage value="/imagen/#{e.idPersona}" width="32" height="32"/>
+						
+						<h:outputText value="#{e.nombres} #{e.apellidos}" />
+						
+						<p:commandButton icon="ui-icon-plus" value="Seguir" actionListener="#{seguirBean.seguir(e)}" rendered="#{!e.esSeguido}" update="@(form)"/>
+						<p:commandButton icon="ui-icon-close" value="Dejar de Seguir" actionListener="#{seguirBean.dejar(e)}" rendered="#{e.esSeguido}" update="@(form)"/>
+					</h:panelGrid>
+				</p:panel>
+			</p:dataGrid>		
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

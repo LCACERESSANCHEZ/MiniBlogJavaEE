@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<link href="./resources/css/index.css" rel="stylesheet" type="text/css" />
+</h:head> 
+<body> 
+	<h:form>
+		<p:growl autoUpdate="true" showDetail="true" showSummary="true"/>
+		<div class="centerDiv" style="width: 400px">
+				<p:panel>
+					<f:facet name="header">Login</f:facet>
+					<h:panelGrid columns="2">
+		                <p:outputLabel for="txtLogin" value="Usuario:"/> 
+		                <h:inputText id="txtLogin" required="true" value="#{indexBean.us.usuario}"/>
+		                
+		                <p:outputLabel for="txtContrasena" value="Contraseña:"/>
+		                <h:inputSecret id="txtContrasena" required="true" value="#{indexBean.us.contrasena}"/>
+					</h:panelGrid>
+					
+					<p:commandButton value="Login" action="#{indexBean.login()}"/>
+					<p:commandButton value="Crear Usuario" action="registrar?faces-redirect=true" immediate="true"/>
+				</p:panel>
+		</div>
+	</h:form>
+</body> 
+</html>

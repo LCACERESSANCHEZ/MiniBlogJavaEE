@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="/WEB-INF/templates/master.xhtml">
+
+		<ui:define name="content">
+			<h1>Roles</h1>
+			<h:form>
+				<p:growl id="msgs" showDetail="true" autoUpdate="true" />
+
+				<p:dataTable id="dt" value="#{rolBean.lista}" var="e" editable="true">
+
+					<p:ajax event="rowEdit" listener="#{rolBean.onRowEdit}" />
+
+					<p:column headerText="ID" filterBy="#{e.id}"
+						filterMatchMode="contains">
+						<p:outputLabel value="#{e.id}" />
+					</p:column>
+
+					<p:column headerText="Rol" filterBy="#{e.tipo}"
+						filterMatchMode="contains">
+						<p:cellEditor>
+							<f:facet name="output">
+								<p:outputLabel value="#{e.tipo}" />
+							</f:facet>
+
+							<f:facet name="input">
+								<p:inputText value="#{e.tipo}" />
+							</f:facet>
+						</p:cellEditor>
+
+					</p:column>
+
+					<p:column style="width: 32px" exportable="false">
+						<p:rowEditor />
+					</p:column>
+
+				</p:dataTable>
+
+				<h:commandLink value="Excel">
+					<p:dataExporter type="xls" target="dt" fileName="personas" />
+				</h:commandLink>
+
+				<h:commandLink value="PDF">
+					<p:dataExporter type="pdf" target="dt" fileName="personas" />
+				</h:commandLink>
+				
+				<h:commandLink value="CSV">			        
+			        <p:dataExporter type="csv" target="dt" fileName="personas" pageOnly="true" />
+			    </h:commandLink>
+			 
+			    <h:commandLink value="XML">			        
+			        <p:dataExporter type="xml" target="dt" fileName="personas" pageOnly="true" />
+			    </h:commandLink>
+			</h:form>
+		</ui:define>
+
+	</ui:composition>
+</body>
+</html>
